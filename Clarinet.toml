@@ -19,3 +19,7 @@ trusted_caller = false
 # warning, if it gets checked inside. This check will also propagate up to the
 # caller.
 callee_filter = false
+
+[contracts.btc]
+path = "contracts/btc.clar"
+depends_on = []
