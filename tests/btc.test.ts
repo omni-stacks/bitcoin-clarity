@@ -18,6 +18,18 @@ describe("[BTC]", () => {
       }
     });
   });
+
+  describe("parse-tx()", () => {
+    it("fails when passed empty tx", () => {
+      const tx = "";
+
+      // act
+      const response = btc.parseTx(tx);
+
+      // assert
+      response.expectErr()
+    })
+  })
 });
 
 run();
