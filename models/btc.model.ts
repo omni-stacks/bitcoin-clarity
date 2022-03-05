@@ -1,7 +1,8 @@
 import { Account, Model, stringToHex, types } from "../deps.ts";
 
 enum Err {
-  ERR_INVALID_TX = 1000
+  ERR_INVALID_TX = 1000,
+  ERR_INVALID_BASE = 1001,
 }
 
 export class BTCModel extends Model {
@@ -18,4 +19,22 @@ export class BTCModel extends Model {
       types.buff(typeof tx === "string" ? stringToHex(tx) : tx),
     ]).result;
   }
+
+  readUInt(
+    data: string | ArrayBuffer,
+    offset: number | bigint,
+    base: number | bigint
+  ) {
+    return this.callReadOnly("read-uint", [
+      types.buff(typeof data === "string" ? stringToHex(data) : data),
+      types.uint(offset),
+      types.int(base),
+    ]).result;
+  }
+}
+
+
+export interface ReadUIntResult {
+  offset: string;
+  val: string;
 }
