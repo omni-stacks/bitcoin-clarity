@@ -48,3 +48,13 @@
     })
   )
 )
+
+(define-read-only (read-varint (data (buff 1024)) (offset uint))
+  (let
+    (
+      (byte (buff-to-u8 (unwrap! (element-at data offset) ERR_OUT_OF_BOUNDS)))
+    )
+    (asserts! (> byte u252) (ok { val: byte, offset: (+ offset u1)}))
+    (read-uint data (+ offset u1) (if (is-eq byte u253) 16 (if (is-eq byte u254) 32 64)))
+  )
+)

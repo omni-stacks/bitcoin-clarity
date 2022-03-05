@@ -31,8 +31,14 @@ export class BTCModel extends Model {
       types.int(base),
     ]).result;
   }
-}
 
+  readVarInt(data: string | ArrayBuffer, offset: number | bigint) {
+    return this.callReadOnly("read-varint", [
+      types.buff(typeof data === "string" ? stringToHex(data) : data),
+      types.uint(offset),
+    ]).result;
+  }
+}
 
 export interface ReadUIntResult {
   offset: string;
