@@ -21,3 +21,16 @@ export { Context } from "./lib/utils/context.ts";
 export { Model, Models } from "./lib/utils/model.ts";
 
 export type Accounts = Map<string, Account>;
+
+import { encode as hexEncode, decode as hexDecode } from "https://deno.land/std@0.125.0/encoding/hex.ts";
+
+export function stringToHex(input: string) {
+  return hexDecode(new TextEncoder().encode(input))
+}
+
+export function decToHex(input: number) {
+  let v = input.toString(16);
+  v = v.length > 1 ? v : `0${v}`;
+
+  return stringToHex(v)
+}
